@@ -53,7 +53,7 @@ body {
 
 .logo img {
     position: absolute;
-   
+
 }
 
 .logo {
@@ -78,8 +78,8 @@ body {
     transition: text-shadow 0.3s ease;
 }
 
-.playertitle:hover{
-    text-shadow: 0 0 5px #18193F, 0 0 10px #18193F, 0 0 15px blue; 
+.playertitle:hover {
+    text-shadow: 0 0 5px #18193F, 0 0 10px #18193F, 0 0 15px blue;
 }
 
 .search {
@@ -145,9 +145,9 @@ body {
     color: #A5D6A7;
 }
 
-.likor{
+.likor {
     transition: color 0.3s;
-    
+
 }
 
 .library ul li:hover .likor {
@@ -156,34 +156,63 @@ body {
 
 .center {
     width: 1015px;
-    height: 600px;
+    height: 530px;
     background-color: #000000;
     margin: 0 auto;
     border-radius: 13px;
     color: white;
+    overflow: scroll;
+
 }
 
-.center ul li img{
+.center::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+}
+
+.center::-webkit-scrollbar-track {
+    background-color: rgba(49, 49, 49, 0.534);
+    border-radius: 12px;
+}
+
+.center::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.822);
+    border-radius: 12px;
+    border: 1px solid transparent;
+    /* Fills any gap with transparency */
+    background-clip: padding-box;
+}
+
+.center::-webkit-scrollbar-thumb:hover {
+    background-color: #A5D6A7;
+}
+
+.center ul li img {
     width: 60px;
     height: 40px;
     filter: invert(100%);
-    padding:  16px;
+    padding: 16px;
     /* position: absolute; */
 }
 
-.center ul li{
+.center {
+    overflow-x: hidden;
+}
+
+.center ul li {
     list-style: none;
 }
 
-.albu{
+.albu {
+    bottom: 27px;
     margin: 24px 0px 0px -17px;
-    position: absolute;
+    position: relative;
     font-size: 21px;
     font-family: "Montserrat", sans-serif;
     font-weight: 800;
 }
 
-.cardcontainer{
+.cardcontainer {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
@@ -192,98 +221,193 @@ body {
 
 
 
-.cards{
-    width: 182px;
+.cards {
+    width: 170px;
     background-color: #252525;
-    border-radius: 10px;
+    border-radius: 5px;
     position: relative;
-    
-    
+
+
 }
 
-.cards img{
+.cards img {
     object-fit: contain;
     width: 100%;
     border-radius: 12px;
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+    height: 145px;
 }
 
-.cards >*{
-    padding-top: 5px;
+
+.cards>* {
+    padding-top: 10px;
 }
 
-.btntrns1{
+.cards p,
+h3 {
+    /* margin: 2px; */
+    font-family: "Poppins", sans-serif;
+    /* width: 12px; */
+    display: block;
+    margin: 2px;
+    padding-left: 4px;
+}
+
+
+
+.btntrns1 {
     /* opacity: 0; */
     transition: ease-in-out 0.5s;
     position: absolute;
-    top: 180px;
-    right: 3px;
+    top: 110px;
+    right: 0px;
+    display: flex
 }
 
 /* .btntrns1:hover{
     opacity: 100%;
 } */
 
-.btn-20,
-.btn-20 *,
-.btn-20 :after,
-.btn-20 :before,
-.btn-20:after,
-.btn-20:before {
-  border: 0 solid;
-  box-sizing: border-box;
+.btn-95,
+.btn-95 *,
+.btn-95 :after,
+.btn-95 :before,
+.btn-95:after,
+.btn-95:before {
+    border: 0 solid;
+    box-sizing: border-box;
 }
-.btn-20 {
-  background-color:#000;
-  background-image: none;
-  color: #fff;
-  cursor: pointer;
-  font-family: poppins;
-  font-weight: 900;
-  line-height: 1;
-  -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
-  width: 70px;
-  display: flex;
-  justify-content: center;
-  margin-top: 3px;
+
+.btn-95 {
+    -webkit-tap-highlight-color:
+        #252525;
+    -webkit-appearance: button;
+    background-color:
+        #000;
+    background-image: none;
+    color:
+        #fff;
+    cursor: pointer;
+    font-family: ui-sans-serif;
+    font-weight: 900;
+    line-height: 1.5;
+    margin: 0;
+    -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+    text-transform: uppercase;
 }
-.btn-20:disabled {
-  cursor: default;
+
+.btn-95:disabled {
+    cursor: default;
 }
-.btn-20:-moz-focusring {
-  outline: auto;
+
+.btn-95:-moz-focusring {
+    outline: auto;
 }
-.btn-20 svg {
-  display: block;
-  vertical-align: middle;
+
+.btn-95 svg {
+    vertical-align: middle;
 }
-.btn-20 [hidden] {
-  display: none;
+
+.btn-95 [hidden] {
+    display: none;
 }
-.btn-20 {
-  border-radius: 99rem;
-  border-width: 2px;
-  border-color: #18193F;
-  overflow: hidden;
-padding: 10px 2px ;
-  position: relative;
+
+.btn-95 {
+    height: 45px;
+    width: 45px;
+    border-radius: 8px;
+    background:
+        hsla(0, 0%, 100%, 0.13);
+    background-clip: content-box;
+    box-sizing: border-box;
+    display: block;
+    -webkit-mask-image: none;
+    padding: 0;
+    position: relative;
+    transition: 0.2s;
 }
-.btn-20 span {
-  mix-blend-mode: difference;
+
+.btn-95:hover {
+    background:
+        #fff;
 }
-.btn-20:before {
-  background: 
-  #A5D6A7;
-  content: "";
-  display: block;
-  height: 100%;
-  left: -100%;
-  position: absolute;
-  top: 0;
-  transform: skew(0deg) translateX(-20%);
-  transition: transform 0.2s ease;
-  width: 120%;
+
+.btn-95 svg {
+    --size: 70px;
+    fill:
+        #fff;
+    display: block;
+    top: 1px;
+    position: absolute;
+
 }
-.btn-20:hover:before {
-  transform: skew(45deg) translateX(75%);
+
+.btn-95:hover svg {
+    fill:
+        #000;
 }
+
+.btn-95:before {
+    border: 5px solid #fff;
+    border-radius: 12px;
+    content: "";
+    inset: 1px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transform: scale(1.5);
+    transition: 0.2s;
+}
+
+.btn-95:hover:before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.btn-95 svg {
+    width: 48px;
+    height: 48px
+}
+
+
+
+
+.nav {
+
+    display: flex;
+    justify-content: end;
+    position: relative;
+   /* border: 4px solid red; */
+    bottom: 73px;
+} 
+
+
+
+ .kili {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    height: 56px;
+    width: 1016px;
+    margin: 12px;
+
+}
+
+.asscebility{
+
+    background-color: pink;
+    width: 100%;           
+    height: 100%;         
+    border-radius: 3px 3px 13px 13px;
+}
+
+
+
+
+
+
+
 
