@@ -25,6 +25,7 @@ body {
     margin: 5px;
     border-radius: 13px;
     font-family: "Poppins", sans-serif;
+    overflow: hidden;
 }
 
 .left img {
@@ -67,14 +68,14 @@ body {
 
 .logo ul li {
     background: radial-gradient(circle, #24A436, #A1D021);
-        -webkit-background-clip: text;  
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: flex;
     padding: 55px;
-    margin-top: -49px;
+    margin-top: -59px;
     font-family: "Kanit", sans-serif;
     font-weight: 600;
-    font-size: 28px;
+    font-size: 36px;
 }
 
 
@@ -118,6 +119,7 @@ body {
 }
 
 
+
 .library ul {
     display: flex;
     justify-content: space-around;
@@ -133,6 +135,10 @@ body {
     filter: invert(100%);
 }
 
+.likor{
+    position: relative;
+    right: 27px;
+}
 .centior {
     margin-right: 57px;
     transition: color 0.3s;
@@ -150,6 +156,8 @@ body {
 .library ul li:hover .likor {
     color: #A5D6A7;
 }
+
+
 
 .center {
     width: 1015px;
@@ -418,7 +426,82 @@ h3 {
 }
 
 
+.quecontainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aqua; */
+    
+}
+
+.que{
+    /* position: relative; */
+  
+    flex-direction: column;
+    display: flex;
+    bottom: 90px;
+    background-color: #222222;
+    height: 335px;
+    width: 100%;
+    margin: 9px;
+    border-radius: 18px 18px 0px 0px;
+    border: 3px solid black;
+    
+}
+
+.que h4{
+    text-align: center;
+}
+
+.minicards ul li {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border: 3px solid rebeccapurple;
+    position: relative;
+    bottom: 56px;
+    height: 50px;
+    width: 265px;
+    border-radius: 5px;   
+    background: linear-gradient(to left, rgb(50, 157, 62), rgb(157, 205, 37))
+    
+}
+
+.que ul{
+    width: 250px;
+}
+
+/* .minicards{
+    background-color: lightblue;
+    height: 50px;
+    width: 265px;
+    margin: 3px auto;
+    border-radius: 5px;   
+    background: linear-gradient(to left, rgb(50, 157, 62), rgb(157, 205, 37))
+} */
+
+.minicards img{
+    display: flex;
+    z-index: 999;
+    filter: invert(100%);
+}
 
 
 
+
+.minicards ul img {
+    height: 33px;
+    width: 25px;
+}
+
+
+.minicardimg{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 12px;
+    width: 100%;
+}
 
