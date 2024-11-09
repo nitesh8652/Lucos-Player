@@ -28,14 +28,6 @@ body {
     overflow: hidden;
 }
 
-.left img {
-    display: flex;
-    flex-direction: row;
-    /* margin: 3px; */
-    margin-top: 10px;
-
-}
-
 .left h3 {
     display: flex;
     justify-content: center;
@@ -427,23 +419,15 @@ h3 {
 
 
 .quecontainer{
-    height: 100%;
+    height: 68%;
     width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: aqua; */
-    
 }
 
 .que{
-    /* position: relative; */
-  
-    flex-direction: column;
-    display: flex;
-    bottom: 90px;
+    overflow: scroll;
+    overflow-x: hidden;
     background-color: #222222;
-    height: 335px;
     width: 100%;
     margin: 9px;
     border-radius: 18px 18px 0px 0px;
@@ -451,57 +435,189 @@ h3 {
     
 }
 
+
+.que::-webkit-scrollbar {
+    width: 5px;
+}
+
+.que::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.534);
+    border-radius: 12px;
+}
+
+.que::-webkit-scrollbar-thumb {
+    background-color: rgba(221, 221, 221, 0.822);
+    border-radius: 12px;
+    
+    height: 5px;
+    
+}
+
+.que::-webkit-scrollbar-thumb:hover {
+    background-color: #A5D6A7;
+}
+
 .que h4{
     text-align: center;
 }
 
-.minicards ul li {
-    align-items: center;
-    justify-content: center;
+.que ul li {
+    border: 3px solid white;
+    /* background: linear-gradient(to left, rgb(50, 157, 62), rgb(157, 205, 37)); */
+    margin: 10px auto;
     display: flex;
-    border: 3px solid rebeccapurple;
-    position: relative;
-    bottom: 56px;
-    height: 50px;
-    width: 265px;
-    border-radius: 5px;   
-    background: linear-gradient(to left, rgb(50, 157, 62), rgb(157, 205, 37))
-    
+    gap: 20px;
+    cursor: pointer;
+    border-radius: 7px;
 }
 
 .que ul{
-    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* .minicards{
-    background-color: lightblue;
-    height: 50px;
-    width: 265px;
-    margin: 3px auto;
-    border-radius: 5px;   
-    background: linear-gradient(to left, rgb(50, 157, 62), rgb(157, 205, 37))
-} */
-
-.minicards img{
-    display: flex;
-    z-index: 999;
+.libimg{
     filter: invert(100%);
+    height: 51px;
+    width: 30px;
 }
 
-
-
-
-.minicards ul img {
-    height: 33px;
-    width: 25px;
-}
-
-
-.minicardimg{
+.playmini{
+    color: black;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 12px;
-    width: 100%;
+    background-color: #ffffff;
+    margin: 11px 5px 0px 0px;
+    border-radius: 12px;
+    width: 66px;
+    height: 37px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.playmini img{
+    height: 51px;
+    width: 30px;
+}
+
+.info{
+    font-size: 11px;
+    margin-top: 8px;
+    width: 105px;
+}
+
+
+
+
+
+
+
+
+
+.time {
+    width: 90%;
+    background-color: #5e5e5e;
+    height: 6px;
+    border-radius: 3px;
+    position: absolute;
+    left: 5%;
+    bottom: 22px;
+  }
+  
+  .elapsed {
+    width: 42%;
+    background-color: #1db954;
+    height: 100%;
+    border-radius: 3px;
+  }
+  
+  .controls {
+    color: white;
+    display: flex;
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .volume {
+    height: 100%;
+    width: 48px;
+  }
+  
+  .controls svg {
+    cursor: pointer;
+    transition: 0.1s;
+  }
+  
+  .controls svg:hover {
+    color: #1db954;
+  }
+  
+  .volume {
+    opacity: 0;
+    position: relative;
+    transition: 0.2s;
+  }
+
+  .air {
+    height: 100%;
+    width: 734px;
+  }
+  
+  
+  .volume .slider {
+    height: 4px;
+    background-color: #5e5e5e;
+    width: 80%;
+    border-radius: 2px;
+    margin-top: 8px;
+    margin-left: 10%;
+  }
+  
+  .volume .slider .green {
+    background-color: #1db954;
+    height: 100%;
+    width: 80%;
+    border-radius: 3px;
+  }
+  
+  .volume .circle {
+    background-color: white;
+    height: 6px;
+    width: 6px;
+    border-radius: 3px;
+    position: absolute;
+    right: 20%;
+    top: 60%;
+  }
+  
+  .volume_button:hover ~ .volume {
+    opacity: 1;
+  }
+  
+  .playing {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    gap: 1px;
+    width: 30px;
+    height: 20px;
+  }
+  
+  .greenline {
+    background-color: #1db954;
+    height: 20px;
+    width: 2px;
+    position: relative;
+    transform-origin: bottom;
+  }
+  
+
+  .plafo svg{
+
+  }

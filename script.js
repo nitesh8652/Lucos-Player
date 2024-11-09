@@ -23,16 +23,58 @@ async function main(){
 
 let songlist=document.querySelector(".que").getElementsByTagName("ul")[0];
 for (const song of mp3) {
-    songlist.innerHTML = songlist.innerHTML + `<li> ${song.replaceAll("%20", " ")} </li>`;
+    songlist.innerHTML = songlist.innerHTML + `<li><img src="assets/library.svg" alt="library" class="libimg">
+                                <div class="info">
+                                    <div> ${song.replaceAll("%20", " ")}</div>
+                                    <div>Song Artist</div>
+                                </div>
+                                <div class="playmini">
+                                    <span>Play</span>
+                                <img src="assets/play-mini-card.svg" alt="play">
+                            </div></li>`;
 }
-    let audio = new Audio(mp3[0]);
-    audio.play();
+    // let audio = new Audio(mp3[0]);
+    // audio.play();
     
-    audio.addEventListener("loadeddata",()=>{
-        let duration = audio.duration;
-        console.log(duration);
-    })
+    // audio.addEventListener("loadeddata",()=>{
+    //     let duration = audio.duration;
+    //     console.log(duration);
+    // })
+
+
+    
 
 }
 
 main();
+
+
+
+function getSongMetadata(file) {
+    jsmediatags.read(file, {
+        onSuccess: function(tag) {
+                        
+            const artist = tag.tags.artist || "Unknown Artist";
+            const title = tag.tags.title || "Unknown Title";
+            console.log("Artist:", artist);
+            console.log("Title:", title);
+            displaySongInfo(title, artist); // Update display with song info
+        },
+        onError: function(error) {
+            console.log("Error reading tags:", error);
+        }
+    });
+}
+
+function displaySongInfo(title, artist) {
+    document.getElementById("songTitle").textContent = title;
+    document.getElementById("songArtist").textContent = artist;
+}
+
+// Usage example: Pass in an actual file from an `<input type="file">`
+document.getElementById("fileInput").addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        getSongMetadata(file);
+    }
+});
