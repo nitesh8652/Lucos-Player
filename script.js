@@ -1,4 +1,7 @@
+let currentsong = new Audio();
 async function fetchingsngs() {
+
+
     let a = await fetch("http://127.0.0.1:3000/songs/")
     let response = await a.text()
     console.log(response)
@@ -17,13 +20,26 @@ async function fetchingsngs() {
     return mp3
 }
 
-async function main(){
+let playingmusic = (currenttrack) => {
+
+    let track = new Audio("/songs/" + currenttrack)
+    currentsong.src = "/songs/" + currenttrack;
+    currentsong.play()
+    play.src="assets/pause.svg";
+    document.querySelector(".playbar").innerHTML="00:00"
+}
+
+
+async function main() {
+
+
+
     let mp3 = await fetchingsngs();
     console.log(mp3);
 
-let songlist=document.querySelector(".que").getElementsByTagName("ul")[0];
-for (const song of mp3) {
-    songlist.innerHTML = songlist.innerHTML + `<li><img src="assets/library.svg" alt="library" class="libimg">
+    let songlist = document.querySelector(".que").getElementsByTagName("ul")[0];
+    for (const song of mp3) {
+        songlist.innerHTML = songlist.innerHTML + `<li><img src="assets/library.svg" alt="library" class="libimg">
                                 <div class="info">
                                     <div> ${song.replaceAll("%20", " ")}</div>
                                     <div>Song Artist</div>
@@ -32,17 +48,38 @@ for (const song of mp3) {
                                     <span>Play</span>
                                 <img src="assets/play-mini-card.svg" alt="play">
                             </div></li>`;
-}
+    }
     // let audio = new Audio(mp3[0]);
     // audio.play();
-    
+
     // audio.addEventListener("loadeddata",()=>{
     //     let duration = audio.duration;
     //     console.log(duration);
     // })
 
 
+    Array.from(document.querySelector(".que").getElementsByTagName("li")).forEach(e => {
+        e.addEventListener("click", element => {
+            console.log(e.querySelector(".info").firstElementChild.innerHTML)
+            playingmusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
+        })
+    })
+
     
+  
+    play.addEventListener("click",()=>{
+         
+           if(currentsong.paused){
+               currentsong.play();
+               play.src="assets/pause.svg";
+            }else {
+                currentsong.pause();
+                play.src="assets/play.svg";
+           
+           }
+     
+        
+    })
 
 }
 
@@ -52,15 +89,15 @@ main();
 
 function getSongMetadata(file) {
     jsmediatags.read(file, {
-        onSuccess: function(tag) {
-                        
+        onSuccess: function (tag) {
+
             const artist = tag.tags.artist || "Unknown Artist";
             const title = tag.tags.title || "Unknown Title";
             console.log("Artist:", artist);
             console.log("Title:", title);
             displaySongInfo(title, artist); // Update display with song info
         },
-        onError: function(error) {
+        onError: function (error) {
             console.log("Error reading tags:", error);
         }
     });

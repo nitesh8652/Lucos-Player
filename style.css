@@ -372,13 +372,7 @@ h3 {
 
 
 /* 
-.nav {
 
-    display: flex;
-    justify-content: end;
-    position: relative;
-    bottom: 87px;
-} 
 
 
 
@@ -409,7 +403,8 @@ h3 {
     border-radius: 15px 15px 0px 0px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
+    overflow: hidden;
 }
 
 .nav img{
@@ -509,115 +504,40 @@ h3 {
     width: 105px;
 }
 
-
-
-
-
-
-
-
-
-.time {
-    width: 90%;
-    background-color: #5e5e5e;
-    height: 6px;
-    border-radius: 3px;
-    position: absolute;
-    left: 5%;
-    bottom: 22px;
-  }
-  
-  .elapsed {
-    width: 42%;
-    background-color: #1db954;
-    height: 100%;
-    border-radius: 3px;
-  }
-  
-  .controls {
-    color: white;
+.playbar{
+    border-radius: 12px;
+    top: 30px;
+    height: 5px;
+    width: 98%;
+    background-color: #fff;
     display: flex;
+    flex-direction: column;
     position: absolute;
-    bottom: 30px;
-    left: 0;
-    width: 100%;
-    justify-content: center;
+}
+
+.assebility{
+    position: relative;
+    top: 40px;
+}
+
+.circle {
+    height: 20px;
+    width: 8px;
+    border-radius: 12px;
+    background-color: #69ffa8;
+    animation: 1.5s pulse infinite ease-in-out;
   }
   
-  .volume {
-    height: 100%;
-    width: 48px;
-  }
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 #69ffa8;
+    }
   
-  .controls svg {
+    100% {
+      box-shadow: 0 0 0 5px #69ffa800;
+    }
+  }
+
+  .assebility{
     cursor: pointer;
-    transition: 0.1s;
-  }
-  
-  .controls svg:hover {
-    color: #1db954;
-  }
-  
-  .volume {
-    opacity: 0;
-    position: relative;
-    transition: 0.2s;
-  }
-
-  .air {
-    height: 100%;
-    width: 734px;
-  }
-  
-  
-  .volume .slider {
-    height: 4px;
-    background-color: #5e5e5e;
-    width: 80%;
-    border-radius: 2px;
-    margin-top: 8px;
-    margin-left: 10%;
-  }
-  
-  .volume .slider .green {
-    background-color: #1db954;
-    height: 100%;
-    width: 80%;
-    border-radius: 3px;
-  }
-  
-  .volume .circle {
-    background-color: white;
-    height: 6px;
-    width: 6px;
-    border-radius: 3px;
-    position: absolute;
-    right: 20%;
-    top: 60%;
-  }
-  
-  .volume_button:hover ~ .volume {
-    opacity: 1;
-  }
-  
-  .playing {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    gap: 1px;
-    width: 30px;
-    height: 20px;
-  }
-  
-  .greenline {
-    background-color: #1db954;
-    height: 20px;
-    width: 2px;
-    position: relative;
-    transform-origin: bottom;
-  }
-  
-
-  .plafo svg{
-
   }
