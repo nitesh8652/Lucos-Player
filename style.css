@@ -520,14 +520,16 @@ h3 {
 
 .circle {
     height: 20px;
-    width: 0px;
+    width: 3px;
     border-radius: 12px;
     background-color: #69ffa8;
     animation: 1.5s pulse infinite ease-in-out;
     z-index: 999;
+    /* position: relative;
+    left: 0%; */
 }
 
-@keyframes pulse {
+/* @keyframes pulse {
     0% {
         box-shadow: 0 0 0 0 #69ffa8;
     }
@@ -535,7 +537,7 @@ h3 {
     100% {
         box-shadow: 0 0 0 5px #69ffa800;
     }
-}
+} */
 
 .assebility{
     cursor: pointer;

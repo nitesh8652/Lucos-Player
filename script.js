@@ -1,6 +1,6 @@
 let currentsong = new Audio();
 let mp3 = []
-let rndmsgselected=false;
+let rndmsgselected = false;
 
 
 
@@ -31,13 +31,13 @@ const playingmusic = (currenttrack) => {
 
     currentsong.src = "/songs/" + currenttrack;
     currentsong.play()
-    play.src="assets/pause.svg";
-    document.querySelector(".runtime").innerHTML="00:00";
-    document.querySelector(".totaldura").innerHTML="00:00";
-    document.querySelector(".trackinfo").innerHTML=  decodeURI
-    (  currenttrack);
+    play.src = "assets/pause.svg";
+    document.querySelector(".runtime").innerHTML = "00:00";
+    document.querySelector(".totaldura").innerHTML = "00:00";
+    document.querySelector(".trackinfo").innerHTML = decodeURI
+        (currenttrack);
     // document.querySelector(".heart-container").innerHTML=`<img src="assets/heart.svg" alt="heart">`;
-    rndmsgselected=true;
+    rndmsgselected = true;
 }
 
 
@@ -49,8 +49,8 @@ async function main() {
     console.log(mp3);
 
     let songlist = document.querySelector(".que").getElementsByTagName("ul")[0];
-    
-    songlist.innerHTML = songlist.innerHTML.replaceAll("%20", " ")
+
+
     for (const song of mp3) {
         songlist.innerHTML = songlist.innerHTML + `<li><img src="assets/library.svg" alt="library" class="libimg">
                                 <div class="info">
@@ -62,7 +62,7 @@ async function main() {
                                 <img src="assets/play-mini-card.svg" alt="play">
                             </div></li>`;
     }
-    
+
     Array.from(document.querySelector(".que").getElementsByTagName("li")).forEach(e => {
         e.addEventListener("click", element => {
             console.log(e.querySelector(".info").firstElementChild.innerHTML)
@@ -70,64 +70,99 @@ async function main() {
         })
     })
 
-    
-  
-    play.addEventListener("click",()=>{
-         
-        if (!rndmsgselected){
-            const randomindex=Math.floor(Math.random()*mp3.length);
+
+
+    play.addEventListener("click", () => {
+
+        if (!rndmsgselected) {
+            const randomindex = Math.floor(Math.random() * mp3.length);
             const randomsong = mp3[randomindex];
             playingmusic(randomsong);
-        }else{
+        } else {
 
-            if(currentsong.paused){
+            if (currentsong.paused) {
                 currentsong.play();
-                play.src="assets/pause.svg";
-            }else {
+                play.src = "assets/pause.svg";
+            } else {
                 currentsong.pause();
-                play.src="assets/play.svg";
-                
+                play.src = "assets/play.svg";
+
             }
-            
+
         }
-        
+
     });
 
-}
 
 
-    currentsong.addEventListener("loadedmetadata",()=>{
+
+    currentsong.addEventListener("loadedmetadata", () => {
         let duration = currentsong.duration;
         let minutes = Math.floor(duration / 60);
         let seconds = Math.floor(duration % 60);
         let time = minutes + ":" + seconds;
-        document.querySelector(".totaldura").innerHTML=`${minutes}:${seconds}`;
+        document.querySelector(".totaldura").innerHTML = `${minutes}:${seconds}`;
         console.log(time);
     })
 
-    currentsong.addEventListener("timeupdate",()=>{
+    currentsong.addEventListener("timeupdate", () => {
         let duration = currentsong.duration;
 
-        
+
         let currenttime = currentsong.currentTime;
         let min = Math.floor(currenttime / 60);
         let sec = Math.floor(currenttime % 60);
         let min1 = Math.floor(duration / 60);
         let sec1 = Math.floor(duration % 60);
-        document.querySelector(".runtime").innerHTML=`${min}:${sec}`;
-        document.querySelector(".circle").style.width=`${(currenttime/duration)*100}%`
+        document.querySelector(".runtime").innerHTML = `${min}:${sec}`;
+        document.querySelector(".circle").style.width = `${(currenttime / duration) * 100}%`
     })
 
 
 
-    document.querySelector(".playbar").addEventListener("click", e=>{
-
-        let updating=(e.offsetX/e.target.getBoundingClientRect().width)*100 + "%";
-        document.querySelector(".circle").style.width= updating+"%";
-        currentsong.currentTime=(e.offsetX/e.target.getBoundingClientRect().width)*currentsong.duration
-    })
 
 
+    // document.querySelector(".playbar").addEventListener("click", e=>{
+    //     let updating = e.offsetX / e.target.getBoundingClientRect().width;
+    //     document.querySelector(".circle").style.width = updating * 100 + "%";
+    //     currentsong.currentTime = updating * currentsong.duration;
+
+    // });
+
+    //make a eventlistner that updates the playbar when the song is played with the duration
+
+
+---------------------------------------------------------------------------------------------------------
+    // document.querySelector(".playbar").addEventListener("click", e => {
+
+    //     document.querySelector(".circle").style.width = e.offsetX / e.target.getBoundingClientRect().width * 100 + "%";
+    //     let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
+    //     document.querySelector(".circle").style.width = percent + "%";
+    //     currentsong.currentTime = ((currentsong.duration) * percent) / 100;
+    // });
+
+
+----------------------------------------------------------------------------------------------
+    document.querySelector(".playbar").addEventListener("click", e => {
+        // Calculate the seek percentage based on the click position
+        let percent = (e.offsetX / e.target.getBoundingClientRect().width);
+    
+        // Update the playhead circle's width based on the percentage
+        document.querySelector(".circle").style.width = (percent * 100) + "%";
+    
+        // Update the current song time accurately
+        currentsong.currentTime = percent * currentsong.duration;
+    
+        // Log to verify the current time and percent
+        console.log("Seek Percent:", percent, "New Current Time:", currentsong.currentTime);
+    });
+    
+
+
+
+
+
+}
 
 main();
 
