@@ -7,6 +7,7 @@
     <title>Lucos Player</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/musicmetadata/2.0.2/musicmetadata.min.js"></script>
 </head>
 
 <body>
@@ -19,8 +20,19 @@
         </ul>
     </div>
     <div class="search">
-        <input type="text" placeholder="Search your music here!">
-        <button>Search</button>
+        <div class="alignment">
+            <input type="text" name="text" class="input" placeholder="Search your music here!">
+            <!-- <input type="text" placeholder="Search your music here!"> -->
+            <button class="searchbtn">
+
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168Z">
+                    </path>
+                </svg>
+
+            </button>
+        </div>
     </div>
     <div class="container">
         <div class="left">
@@ -38,7 +50,8 @@
 
             <div class="quecontainer">
                 <div class="que">
-                    <h4>Your Queue</h4> <input type="file" id="fileInput" accept=".mp3" multiple>
+                    <h4>Your Queue</h4>
+                    <!-- <input type="file" id="fileInput" accept=".mp3" multiple> -->
 
 
                     <ul>
@@ -111,7 +124,7 @@
                 <div class="trackinfo"> </div>
                 <!-- <img src="assets/heart.svg" alt=""> -->
                 <!-- <div class="heartnav"></div> -->
-                
+
                 <div class="totaldura"></div>
                 <div title="Like" class="heart-container">
                     <input id="Give-It-An-Id" class="checkbox" type="checkbox">
@@ -136,30 +149,41 @@
                         </svg>
                     </div>
                 </div>
-
             </div>
+
 
 
             <div class="nav">
                 <div class="playbar">
                     <div class="circle"></div>
                 </div>
-
-
                 <!-- previous -->
                 <div class="assebility">
                     <img id="previous" src="assets/previous.svg" alt="previous">
-
-                    <!-- pause -->
                     <!-- <img id="pause"src="assets/pause.svg" alt="pause"> -->
-
-                    <!-- play -->
                     <img id="play" src="assets/play.svg" alt="play">
-
-                    <!-- next -->
                     <img id="next" src="assets/next.svg" alt="next">
                 </div>
 
+
+
+                <div class="volumenav">
+                    <label class="slider">
+                        <input type="range" class="level">
+                        <svg class="volume" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0"
+                            viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                            <g>
+                                <path
+                                    d="M18.36 19.36a1 1 0 0 1-.705-1.71C19.167 16.148 20 14.142 20 12s-.833-4.148-2.345-5.65a1 1 0 1 1 1.41-1.419C20.958 6.812 22 9.322 22 12s-1.042 5.188-2.935 7.069a.997.997 0 0 1-.705.291z"
+                                    fill="black" data-original="#000000"></path>
+                                <path
+                                    d="M15.53 16.53a.999.999 0 0 1-.703-1.711C15.572 14.082 16 13.054 16 12s-.428-2.082-1.173-2.819a1 1 0 1 1 1.406-1.422A6 6 0 0 1 18 12a6 6 0 0 1-1.767 4.241.996.996 0 0 1-.703.289zM12 22a1 1 0 0 1-.707-.293L6.586 17H4c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h2.586l4.707-4.707A.998.998 0 0 1 13 3v18a1 1 0 0 1-1 1z"
+                                    fill="black" data-original="#000000"></path>
+                            </g>
+                        </svg>
+                    </label>
+                </div>
 
 
             </div>
@@ -182,3 +206,5 @@
 </body>
 
 </html>
+
+<!-- #111827 -->

@@ -82,9 +82,20 @@ async function main() {
 
             if (currentsong.paused) {
                 currentsong.play();
-                play.src = "assets/pause.svg";
+                play.style.transform = "scale(1)";
+                play.style.opacity="0";
+                setTimeout(()=>{
+                    play.src = "assets/pause.svg";
+                    play.style.opacity="1";
+
+                },200);
             } else {
-                currentsong.pause();
+                currentsong.pause()
+                play.style.transform = "scale(1)";
+                play.style.opacity="0";
+                setTimeout(()=>{
+                    play.style.opacity="1";
+                },200);
                 play.src = "assets/play.svg";
 
             }
@@ -92,8 +103,6 @@ async function main() {
         }
 
     });
-
-
 
 
     currentsong.addEventListener("loadedmetadata", () => {
@@ -107,8 +116,6 @@ async function main() {
 
     currentsong.addEventListener("timeupdate", () => {
         let duration = currentsong.duration;
-
-
         let currenttime = currentsong.currentTime;
         let min = Math.floor(currenttime / 60);
         let sec = Math.floor(currenttime % 60);
@@ -118,45 +125,48 @@ async function main() {
         document.querySelector(".circle").style.width = `${(currenttime / duration) * 100}%`
     })
 
-
-
-
-
-    // document.querySelector(".playbar").addEventListener("click", e=>{
-    //     let updating = e.offsetX / e.target.getBoundingClientRect().width;
-    //     document.querySelector(".circle").style.width = updating * 100 + "%";
-    //     currentsong.currentTime = updating * currentsong.duration;
-
-    // });
-
-    //make a eventlistner that updates the playbar when the song is played with the duration
-
-
----------------------------------------------------------------------------------------------------------
-    // document.querySelector(".playbar").addEventListener("click", e => {
-
-    //     document.querySelector(".circle").style.width = e.offsetX / e.target.getBoundingClientRect().width * 100 + "%";
-    //     let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
-    //     document.querySelector(".circle").style.width = percent + "%";
-    //     currentsong.currentTime = ((currentsong.duration) * percent) / 100;
-    // });
-
-
-----------------------------------------------------------------------------------------------
     document.querySelector(".playbar").addEventListener("click", e => {
-        // Calculate the seek percentage based on the click position
         let percent = (e.offsetX / e.target.getBoundingClientRect().width);
-    
-        // Update the playhead circle's width based on the percentage
         document.querySelector(".circle").style.width = (percent * 100) + "%";
-    
-        // Update the current song time accurately
         currentsong.currentTime = percent * currentsong.duration;
-    
-        // Log to verify the current time and percent
-        console.log("Seek Percent:", percent, "New Current Time:", currentsong.currentTime);
+        // console.log("Seek Percent:", percent, "New Current Time:", currentsong.currentTime);
     });
+
+    previous.addEventListener("click",()=>{
+        let previndex = mp3.indexOf(currentsong.src.split("/").slice(-1)[0]);
+let previouslastindex= (previndex+1)%mp3.length;
+playingmusic(mp3[previouslastindex]);
+console.log("clic")
+
+    })
     
+    next.addEventListener("click",()=>{
+       
+        let nextindex =mp3.indexOf(currentsong.src.split("/").slice(-1)[0]);
+        let nextlastindex = (nextindex + 1) % mp3.length;
+        playingmusic(mp3[nextlastindex]);
+
+         })
+        // let index = mp3.indexOf(currentsong.src.split("/songs/")[1]);
+        // console.log(currentsong.src.split("/songs/")[1])
+        // console.log(mp3,index)
+
+        // if ((index + 1) > length) {
+        //     playingmusic(mp3[index+1]);
+        // }
+        
+        // playingmusic(mp3[0]);
+
+
+        // document.querySelector(".slider").getElementsByTagName("input")[0].addEventListener("change",(e)=>{
+            
+        //     currentsong.volume = parseInt(e.target.value)/100;
+        
+        // })
+        document.querySelector(".slider input").addEventListener("input",(e)=>{
+        currentsong.volume = parseInt(e.target.value)/100
+
+})
 
 
 
