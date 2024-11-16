@@ -172,37 +172,101 @@ console.log("clic")
 
 
 
+// let currentsong = new Audio();
+
+async function fetchSongs() {
+    let response = await fetch("http://127.0.0.1:3000/songs/");
+    let text = await response.text();
+    let container = document.createElement("div");
+    container.innerHTML = text;
+
+    let songLinks = Array.from(container.getElementsByTagName("a"))
+        .map(link => link.href)
+        .filter(href => href.endsWith(".mp3"));
+
+    return songLinks.map(song => song.split("/songs/")[1]);
+}
+
+function createCard(song, thumbnail, title = "Unknown Title", artist = "Unknown Artist") {
+    return `
+        <div class="cards">
+            <img src="${thumbnail}" alt="Thumbnail">
+            <div class="btntrns1">
+                <button class="btn-95" data-song="${song}">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M7.75194 5.43872L18.2596 11.5682C18.4981 11.7073 18.5787 12.0135 18.4396 12.252C18.3961 12.3265 18.3341 12.3885 18.2596 12.432L7.75194 18.5615C7.51341 18.7006 7.20725 18.62 7.06811 18.3815C7.0235 18.305 7 18.2181 7 18.1296V5.87061C7 5.59446 7.22386 5.37061 7.5 5.37061C7.58853 5.37061 7.67547 5.39411 7.75194 5.43872Z"></path>
+                    </svg>
+                </button>
+            </div>
+            <h3>${title}</h3>
+            <p>${artist}</p>
+        </div>
+    `;
+}
+
+async function loadSongsIntoCards() {
+    const songs = await fetchSongs();
+    const cardContainer = document.querySelector(".cardcontainer");
+
+    cardContainer.innerHTML = ""; // Clear existing content
+
+    for (const song of songs) {
+        const thumbnail = `/thumbnails/${song.replace(".mp3", ".jpg")}`; // Assume separate thumbnails
+        const title = decodeURI(song.replace(".mp3", "")); // Decode and remove file extension
+        const artist = "Artist"; // Replace this with actual metadata fetching if available
+
+        // Add each card dynamically
+        const cardHTML = createCard(song, thumbnail, title, artist);
+        cardContainer.innerHTML += cardHTML;
+    }
+
+    // Add play functionality to buttons
+    document.querySelectorAll(".btn-95").forEach(button => {
+        button.addEventListener("click", e => {
+            const selectedSong = e.currentTarget.dataset.song;
+            playingmusic(selectedSong);
+        });
+    });
+}
+
+loadSongsIntoCards();
+
+
+
+
+
+
 }
 
 main();
 
 
 
-function getSongMetadata(file) {
-    jsmediatags.read(file, {
-        onSuccess: function (tag) {
+// function getSongMetadata(file) {
+//     jsmediatags.read(file, {
+//         onSuccess: function (tag) {
 
-            const artist = tag.tags.artist || "Unknown Artist";
-            const title = tag.tags.title || "Unknown Title";
-            console.log("Artist:", artist);
-            console.log("Title:", title);
-            displaySongInfo(title, artist); // Update display with song info
-        },
-        onError: function (error) {
-            console.log("Error reading tags:", error);
-        }
-    });
-}
+//             const artist = tag.tags.artist || "Unknown Artist";
+//             const title = tag.tags.title || "Unknown Title";
+//             console.log("Artist:", artist);
+//             console.log("Title:", title);
+//             displaySongInfo(title, artist); // Update display with song info
+//         },
+//         onError: function (error) {
+//             console.log("Error reading tags:", error);
+//         }
+//     });
+// }
 
-function displaySongInfo(title, artist) {
-    document.getElementById("songTitle").textContent = title;
-    document.getElementById("songArtist").textContent = artist;
-}
+// function displaySongInfo(title, artist) {
+//     document.getElementById("songTitle").textContent = title;
+//     document.getElementById("songArtist").textContent = artist;
+// }
 
-// Usage example: Pass in an actual file from an `<input type="file">`
-document.getElementById("fileInput").addEventListener("change", (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        getSongMetadata(file);
-    }
-});
+// // Usage example: Pass in an actual file from an `<input type="file">`
+// document.getElementById("fileInput").addEventListener("change", (event) => {
+//     const file = event.target.files[0];
+//     if (file) {
+//         getSongMetadata(file);
+//     }
+// });
