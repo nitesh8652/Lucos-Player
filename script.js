@@ -2,9 +2,6 @@ let currentsong = new Audio();
 let mp3 = []
 let rndmsgselected = false;
 
-
-
-
 async function fetchingsngs() {
 
 
@@ -37,6 +34,25 @@ const playingmusic = (currenttrack) => {
     document.querySelector(".trackinfo").innerHTML = decodeURI
         (currenttrack);
     // document.querySelector(".heart-container").innerHTML=`<img src="assets/heart.svg" alt="heart">`;
+
+    document.querySelectorAll(".cards").forEach(card => {
+        if (card.getAttribute("data-song-id") === currenttrack) {
+            card.classList.add("choosenone");
+
+        } else {
+            card.classList.remove("choosenone");
+        }
+
+    })
+
+    document.querySelectorAll(".li").forEach(li=>{
+        if(li.getAttribute("data-song-id")===currenttrack){
+            li.classList.add("currentque");
+        }else{
+            li.classList.remove("currentque");
+        }
+    })
+
     rndmsgselected = true;
 }
 
@@ -52,7 +68,9 @@ async function main() {
 
 
     for (const song of mp3) {
-        songlist.innerHTML = songlist.innerHTML + `<li><img src="assets/library.svg" alt="library" class="libimg">
+        songlist.innerHTML += songlist.innerHTML + 
+        `<li data-song-id="${song}">
+        <img src="assets/library.svg" alt="library" class="libimg">
                                 <div class="info">
                                     <div> ${song.replaceAll("%20", " ")}</div>
                                     <div>Song Artist</div>
@@ -83,19 +101,19 @@ async function main() {
             if (currentsong.paused) {
                 currentsong.play();
                 play.style.transform = "scale(1)";
-                play.style.opacity="0";
-                setTimeout(()=>{
+                play.style.opacity = "0";
+                setTimeout(() => {
                     play.src = "assets/pause.svg";
-                    play.style.opacity="1";
+                    play.style.opacity = "1";
 
-                },200);
+                }, 200);
             } else {
                 currentsong.pause()
                 play.style.transform = "scale(1)";
-                play.style.opacity="0";
-                setTimeout(()=>{
-                    play.style.opacity="1";
-                },200);
+                play.style.opacity = "0";
+                setTimeout(() => {
+                    play.style.opacity = "1";
+                }, 200);
                 play.src = "assets/play.svg";
 
             }
@@ -132,66 +150,52 @@ async function main() {
         // console.log("Seek Percent:", percent, "New Current Time:", currentsong.currentTime);
     });
 
-    previous.addEventListener("click",()=>{
+    previous.addEventListener("click", () => {
         let previndex = mp3.indexOf(currentsong.src.split("/").slice(-1)[0]);
-let previouslastindex= (previndex+1)%mp3.length;
-playingmusic(mp3[previouslastindex]);
-console.log("clic")
+        let previouslastindex = (previndex - 1) % mp3.length;
+        playingmusic(mp3[previouslastindex]);
+        console.log("clic")
 
     })
-    
-    next.addEventListener("click",()=>{
-       
-        let nextindex =mp3.indexOf(currentsong.src.split("/").slice(-1)[0]);
+
+    next.addEventListener("click", () => {
+
+        let nextindex = mp3.indexOf(currentsong.src.split("/").slice(-1)[0]);
         let nextlastindex = (nextindex + 1) % mp3.length;
         playingmusic(mp3[nextlastindex]);
 
-         })
-        // let index = mp3.indexOf(currentsong.src.split("/songs/")[1]);
-        // console.log(currentsong.src.split("/songs/")[1])
-        // console.log(mp3,index)
+    })
 
-        // if ((index + 1) > length) {
-        //     playingmusic(mp3[index+1]);
-        // }
-        
-        // playingmusic(mp3[0]);
+    document.querySelector(".slider input").addEventListener("input", (e) => {
+        currentsong.volume = parseInt(e.target.value) / 100
 
 
-        // document.querySelector(".slider").getElementsByTagName("input")[0].addEventListener("change",(e)=>{
+
+
+    })
+
+    // let currentsong = new Audio();
+
+    async function fetchSongs() {
+        let response = await fetch("http://127.0.0.1:3000/songs/");
+        let text = await response.text();
+        let container = document.createElement("div");
+        container.innerHTML = text;
+
+        let songLinks = Array.from(container.getElementsByTagName("a"))
+            .map(link => link.href)
+            .filter(href => href.endsWith(".mp3"));
+
+        return songLinks.map(song => song.split("/songs/")[1]);
+    }
+
+    function createCard(song, thumbnail, title = "Unknown Title", artist = "Unknown Artist") {
+        return `
+        <div class="cards" data-song-id="${song}">
             
-        //     currentsong.volume = parseInt(e.target.value)/100;
-        
-        // })
-        document.querySelector(".slider input").addEventListener("input",(e)=>{
-        currentsong.volume = parseInt(e.target.value)/100
-
-})
-
-
-
-
-
-// let currentsong = new Audio();
-
-async function fetchSongs() {
-    let response = await fetch("http://127.0.0.1:3000/songs/");
-    let text = await response.text();
-    let container = document.createElement("div");
-    container.innerHTML = text;
-
-    let songLinks = Array.from(container.getElementsByTagName("a"))
-        .map(link => link.href)
-        .filter(href => href.endsWith(".mp3"));
-
-    return songLinks.map(song => song.split("/songs/")[1]);
-}
-
-function createCard(song, thumbnail, title = "Unknown Title", artist = "Unknown Artist") {
-    return `
-        <div class="cards">
-            <img src="${thumbnail}" alt="Thumbnail">
+            <img src="${thumbnail}" alt="Thumbnail" onerror="this.src='/thumbnails/default.jpg'">
             <div class="btntrns1">
+            
                 <button class="btn-95" data-song="${song}">
                     <svg viewBox="0 0 24 24">
                         <path d="M7.75194 5.43872L18.2596 11.5682C18.4981 11.7073 18.5787 12.0135 18.4396 12.252C18.3961 12.3265 18.3341 12.3885 18.2596 12.432L7.75194 18.5615C7.51341 18.7006 7.20725 18.62 7.06811 18.3815C7.0235 18.305 7 18.2181 7 18.1296V5.87061C7 5.59446 7.22386 5.37061 7.5 5.37061C7.58853 5.37061 7.67547 5.39411 7.75194 5.43872Z"></path>
@@ -199,37 +203,47 @@ function createCard(song, thumbnail, title = "Unknown Title", artist = "Unknown 
                 </button>
             </div>
             <h3>${title}</h3>
-            <p>${artist}</p>
+         
         </div>
     `;
-}
-
-async function loadSongsIntoCards() {
-    const songs = await fetchSongs();
-    const cardContainer = document.querySelector(".cardcontainer");
-
-    cardContainer.innerHTML = ""; // Clear existing content
-
-    for (const song of songs) {
-        const thumbnail = `/thumbnails/${song.replace(".mp3", ".jpg")}`; // Assume separate thumbnails
-        const title = decodeURI(song.replace(".mp3", "")); // Decode and remove file extension
-        const artist = "Artist"; // Replace this with actual metadata fetching if available
-
-        // Add each card dynamically
-        const cardHTML = createCard(song, thumbnail, title, artist);
-        cardContainer.innerHTML += cardHTML;
     }
 
-    // Add play functionality to buttons
-    document.querySelectorAll(".btn-95").forEach(button => {
-        button.addEventListener("click", e => {
-            const selectedSong = e.currentTarget.dataset.song;
-            playingmusic(selectedSong);
-        });
-    });
-}
+    async function loadSongsIntoCards() {
+        const songs = await fetchSongs();
+        const cardContainer = document.querySelector(".cardcontainer");
 
-loadSongsIntoCards();
+        cardContainer.innerHTML = ""; // Clear existing content
+
+        for (const song of songs) {
+            const thumbnail = `/thumbnails/${song.replace(".mp3", ".jpg")}`; // Assume separate thumbnails
+            const title = decodeURI(song.replace(".mp3", "")); // Decode and remove file extension
+
+            // Add each card dynamically
+            const cardHTML = createCard(song, thumbnail, title);
+            cardContainer.innerHTML += cardHTML;
+
+        }
+
+        // Add play functionality to buttons
+        document.querySelectorAll(".btn-95").forEach(button => {
+            button.addEventListener("click", e => {
+                const selectedSong = e.currentTarget.dataset.song;
+                playingmusic(selectedSong);
+            });
+        });
+    }
+
+    async function checkImageExists(thumbnails) {
+        try {
+            const response = await fetch(thumbnails, { method: "HEAD" });
+            return response.ok;
+        } catch (error) {
+            console.error(`Error checking image: ${thumbnails / cat.jpg}`, error);
+            return false;
+        }
+    }
+
+    loadSongsIntoCards();
 
 
 
@@ -240,33 +254,3 @@ loadSongsIntoCards();
 
 main();
 
-
-
-// function getSongMetadata(file) {
-//     jsmediatags.read(file, {
-//         onSuccess: function (tag) {
-
-//             const artist = tag.tags.artist || "Unknown Artist";
-//             const title = tag.tags.title || "Unknown Title";
-//             console.log("Artist:", artist);
-//             console.log("Title:", title);
-//             displaySongInfo(title, artist); // Update display with song info
-//         },
-//         onError: function (error) {
-//             console.log("Error reading tags:", error);
-//         }
-//     });
-// }
-
-// function displaySongInfo(title, artist) {
-//     document.getElementById("songTitle").textContent = title;
-//     document.getElementById("songArtist").textContent = artist;
-// }
-
-// // Usage example: Pass in an actual file from an `<input type="file">`
-// document.getElementById("fileInput").addEventListener("change", (event) => {
-//     const file = event.target.files[0];
-//     if (file) {
-//         getSongMetadata(file);
-//     }
-// });
